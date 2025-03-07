@@ -1,16 +1,26 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Calendar, MapPin, Users, ArrowLeft, Clock, Award, AlertCircle } from 'lucide-react';
-import { events } from '../data';
+import { motion } from "framer-motion";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  ArrowLeft,
+  Clock,
+  Award,
+  AlertCircle,
+  BadgeIndianRupee,
+  ScanLine,
+  Cctv,
+} from "lucide-react";
+import { events } from "../data";
 
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const event = events.find(e => e.id === id);
+  const event = events.find((e) => e.id === id);
 
   const handleRegister = () => {
-    navigate('/register', { state: { eventId: id } });
+    navigate("/register", { state: { eventId: id } });
   };
 
   if (!event) {
@@ -38,20 +48,20 @@ const EventDetails = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           <div>
-            <motion.div 
+            <motion.div
               className="neo-card overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
               <img
-                src={event.image}
+                src={event.image as string}
                 alt={event.title}
                 className="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-500"
               />
             </motion.div>
 
             <div className="mt-8 grid grid-cols-2 gap-4">
-              <motion.div 
+              <motion.div
                 className="neo-card bg-[rgb(var(--color-primary))]/10"
                 whileHover={{ y: -5 }}
               >
@@ -64,7 +74,7 @@ const EventDetails = () => {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="neo-card bg-[rgb(var(--color-secondary))]/10"
                 whileHover={{ y: -5 }}
               >
@@ -72,12 +82,12 @@ const EventDetails = () => {
                   <MapPin className="mr-4 text-[rgb(var(--color-secondary))]" />
                   <div>
                     <h3 className="font-bold">Venue</h3>
-                    <p>{event.venue}</p>
+                    <p>{event.location}</p>
                   </div>
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="neo-card bg-[rgb(var(--color-accent))]/10"
                 whileHover={{ y: -5 }}
               >
@@ -90,7 +100,7 @@ const EventDetails = () => {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="neo-card bg-[rgb(var(--color-purple))]/10"
                 whileHover={{ y: -5 }}
               >
@@ -98,7 +108,35 @@ const EventDetails = () => {
                   <Users className="mr-4 text-[rgb(var(--color-purple))]" />
                   <div>
                     <h3 className="font-bold">Team Size</h3>
-                    <p>{event.teamSize.min}-{event.teamSize.max} members</p>
+                    <p>
+                      {event.teamSize.min} &ndash; {event.teamSize.max} members
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="neo-card bg-[rgb(var(--color-indigo))]/10"
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-center">
+                  <BadgeIndianRupee className="mr-4 text-[rgb(var(--color-indigo))]" />
+                  <div>
+                    <h3 className="font-bold">Entry Fees</h3>
+                    <p>{event.entryFees}</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="neo-card bg-[rgb(var(--color-orange))]/10"
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-center">
+                  <ScanLine className="mr-4 text-[rgb(var(--color-orange))]" />
+                  <div>
+                    <h3 className="font-bold">Event Code</h3>
+                    <p>{event.code}</p>
                   </div>
                 </div>
               </motion.div>
@@ -107,10 +145,12 @@ const EventDetails = () => {
 
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl font-black mb-4 gradient-text">{event.title}</h1>
-              <span className="inline-block bg-[rgb(var(--color-secondary))] text-black px-4 py-1 font-bold border-2 border-black">
+              <h1 className="text-4xl font-black mb-4 gradient-text">
+                {event.title}
+              </h1>
+              {/* <span className="inline-block bg-[rgb(var(--color-secondary))] text-black px-4 py-1 font-bold border-2 border-black">
                 {event.category}
-              </span>
+              </span> */}
             </div>
 
             <div className="neo-card bg-[rgb(var(--color-accent))]/5">
@@ -118,7 +158,7 @@ const EventDetails = () => {
                 <Award className="mr-2 text-[rgb(var(--color-primary))]" />
                 Event Description
               </h2>
-              <p className="text-lg leading-relaxed">{event.description}</p>
+              <p className="text-lg leading-relaxed">{event.tagline}</p>
             </div>
 
             <div className="neo-card bg-[rgb(var(--color-secondary))]/5">
@@ -127,9 +167,28 @@ const EventDetails = () => {
                 Rules & Guidelines
               </h2>
               <ul className="list-disc list-inside space-y-2">
-                {event.rules.map((rule, index) => (
-                  <li key={index} className="text-lg">{rule}</li>
-                ))}
+                {event.rules &&
+                  event.rules.map((rule, index) => (
+                    <li key={index} className="text-lg">
+                      {rule}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+
+            <div className="neo-card bg-[rgb(var(--color-teal))]/5">
+              <h2 className="text-2xl font-bold mb-4 flex items-center">
+                <Cctv className="mr-2 text-[rgb(var(--color-teal))]" />
+                Coordinators
+              </h2>
+              <ul className="list-disc list-inside space-y-2">
+                {event.coordinators &&
+                  event.coordinators.map((cr, index) => (
+                    <li key={index} className="text-lg">
+                      {/* {`${cr.name}  ${cr.contact}`} */}
+                      {cr.name} &ndash; {cr.contact}
+                    </li>
+                  ))}
               </ul>
             </div>
 

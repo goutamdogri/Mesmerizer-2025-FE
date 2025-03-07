@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Filter, Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, MapPin, Users } from 'lucide-react';
 import { events } from '../data';
 
-const categories = Array.from(new Set(events.map(event => event.category)));
+// const categories = Array.from(new Set(events.map(event => event.category)));
 
 const Events = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+//   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const filteredEvents = selectedCategory === 'all'
-    ? events
-    : events.filter(event => event.category === selectedCategory);
+//   const filteredEvents = selectedCategory === 'all'
+//     ? events
+//     : events.filter(event => event.category === selectedCategory);
+// console.log(filteredEvents);
 
   return (
     <motion.div
@@ -28,7 +28,7 @@ const Events = () => {
         </div>
 
         {/* Filters */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <div className="flex items-center justify-center space-x-4 flex-wrap">
             <Filter className="mr-2" />
             <button
@@ -47,11 +47,11 @@ const Events = () => {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredEvents.map(event => (
+          {events.map(event => (
             <motion.div
               key={event.id}
               layout
@@ -62,17 +62,17 @@ const Events = () => {
             >
               <div className="relative mb-4 overflow-hidden border-4 border-black dark:border-white">
                 <img
-                  src={event.image}
+                  src={event.image as string}
                   alt={event.title}
                   className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300"
                 />
-                <div className="absolute top-2 right-2 bg-white dark:bg-zinc-800 px-3 py-1 border-2 border-black dark:border-white">
+                {/* <div className="absolute top-2 right-2 bg-white dark:bg-zinc-800 px-3 py-1 border-2 border-black dark:border-white">
                   {event.category}
-                </div>
+                </div> */}
               </div>
               
               <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p>
+              {/* <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p> */}
               
               <div className="space-y-2 mb-4">
                 <div className="flex items-center">
@@ -81,11 +81,11 @@ const Events = () => {
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 mr-2 text-[rgb(var(--color-secondary))]" />
-                  <span>{event.venue}</span>
+                  <span>{event.location}</span>
                 </div>
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-2 text-[rgb(var(--color-accent))]" />
-                  <span>Team: {event.teamSize.min}-{event.teamSize.max} members</span>
+                  <span>Team: {event.teamSize.min} &ndash; {event.teamSize.max} members</span>
                 </div>
               </div>
               

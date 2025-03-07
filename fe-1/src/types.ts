@@ -1,16 +1,18 @@
 export interface Event {
   id: string;
   title: string;
-  category: string;
-  description: string;
   date: string;
   time: string;
-  venue: string;
-  image: string;
-  rules: string[];
+  image: string | null;
+  location: string | null;
+  tagline: string | null;
+  code: string | null;
+  entryFees: string | null;
+  coordinators: { name: string; contact: string }[] | null;
+  rules: string[] | null;
   teamSize: {
-    min: number;
-    max: number;
+    min: number | null;
+    max: number | null;
   };
 }
 

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'morbithrone';
+  src: url('./assets/fonts/MorbithronePersonalUse.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +18,10 @@
     --color-indigo: 61 90 254;      /* Bright Indigo */
     --color-teal: 29 233 182;       /* Bright Teal */
     --color-orange: 255 110 64;     /* Bright Orange */
+  }
+
+  body {
+    font-family: 'morbithrone', sans-serif;
   }
 
   .pattern-dots {
